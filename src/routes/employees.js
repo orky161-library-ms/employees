@@ -1,6 +1,6 @@
 require("express-async-errors")
 const express = require('express')
-const employeesLogic = new (require("../bl/employees"))()
+const employeesLogic = new (require("../controller/employees"))()
 const {permission_mw, auth_mw, equalId_mw} = require("../auth/auth")
 const router = express.Router()
 

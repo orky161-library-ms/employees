@@ -1,28 +1,30 @@
-const pool = require('../db')
+const {pool} = require('../config/index')
+const {addEmployeeQuery,
+    getEmployeeByIdQuery,
+    updateEmployeeQuery,
+    getEmployeesQuery,} = require("../query_builder/queries")
 
 class employeesDal {
 
     async addEmployee({name, email}) {
-        const employee = await pool.query('INSERT INTO employees (name, email) VALUES (?,?)',
+        const employee = await pool.query(addEmployeeQuery,
             [name, email])
         return employee[0].insertId
     }
 
-    async getEmployee(id) {
-        const employee = await pool.query('SELECT * FROM employees WHERE id = (?)',
+    async getEmployeeById(id) {
+        const employee = await pool.query(getEmployeeByIdQuery,
             [id])
         return employee[0][0]
     }
 
     async updateEmployee(id, {name}) {
-        await pool.query('UPDATE employees SET ' +
-            'name = (?)' +
-            'WHERE id = (?)',
+        await pool.query(updateEmployeeQuery,
             [name, id])
     }
 
     async getEmployees() {
-        const employees = await pool.query('SELECT * FROM employees')
+        const employees = await pool.query(getEmployeesQuery)
         return employees[0]
     }
 }
