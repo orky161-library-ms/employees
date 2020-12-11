@@ -1,0 +1,4 @@
+name: employees
+port: 30004
+deployment:
+  replicas: 2
