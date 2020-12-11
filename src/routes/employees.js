@@ -18,7 +18,6 @@ router.get("/:id", [auth_mw, permission_mw("ADMIN")], (async (req, res) => {
 }))
 router.post("/login",(async (req, res) => {
     const token = await employeesLogic.login(req.body)
-    console.log(token)
     res.status(200).json({token})
 }))
 router.put("/:id",[auth_mw, permission_mw("ADMIN")],(async (req, res) => {

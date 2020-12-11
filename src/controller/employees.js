@@ -17,7 +17,7 @@ class employeesLogic{
         return employeeDal.getEmployeeById(id)
     }
     async login({email, password}) {
-        const employee = await axios.post(`http://${process.env.AUTH_SERVICE}:30000/api/auth/login`,{
+        const employee = await axios.post(`http://${process.env.AUTH_SERVICE}/api/auth/login`,{
             email, password
         })
         return employee.data.token
