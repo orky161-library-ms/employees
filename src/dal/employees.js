@@ -6,9 +6,9 @@ const {addEmployeeQuery,
 
 class employeesDal {
 
-    async addEmployee({name, email}) {
+    async addEmployee({name}) {
         const employee = await pool.query(addEmployeeQuery,
-            [name, email])
+            [name])
         return employee[0].insertId
     }
 
