@@ -1,35 +1,35 @@
-const employeeDal = new (require('../dal/employees'))()
+const employeeDal = require('../dal/employees')
 const axios = require("axios")
+const {sendEmail} = require("../queue/rabbit/producers/publish")
 
-class employeesLogic{
-    async addEmployee({name, email, password}) {
-        await axios.post(`http://${process.env.AUTH_SERVICE}/api/auth/admin`,{
-            email, password
-        })
-        return employeeDal.addEmployee({name, email})
-    }
-
-    deleteEmployee(id) {
-        return employeeDal.deleteEmployee(id)
-    }
-
-    getEmployee(id) {
-        return employeeDal.getEmployeeById(id)
-    }
-    async login({email, password}) {
-        const employee = await axios.post(`http://${process.env.AUTH_SERVICE}/api/auth/login`,{
-            email, password
-        })
-        return employee.data.token
-    }
-
-    updateEmployee(id, employee) {
-        return employeeDal.updateEmployee(id, employee)
-    }
-
-    getEmployees() {
-        return employeeDal.getEmployees()
-    }
+async function addEmployee({name, email, employee}) {
+    await employeeDal.addEmployee({name, authId: employee})
+    sendEmail(email)
 }
 
-module.exports = employeesLogic
+function getEmployee(id) {
+    return employeeDal.getEmployeeById(id)
+}
+
+async function login({email, password}) {
+    const employee = await axios.post(`http://${process.env.AUTH_SERVICE}/api/auth/login`, {
+        email, password
+    })
+    return employee.data.token
+}
+
+function updateEmployee(id, employee) {
+    return employeeDal.updateEmployee(id, employee)
+}
+
+function getEmployees() {
+    return employeeDal.getEmployees()
+}
+
+module.exports = {
+    addEmployee,
+    getEmployee,
+    login,
+    updateEmployee,
+    getEmployees,
+}

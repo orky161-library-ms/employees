@@ -1,7 +1,7 @@
 
 const checkConnectionQuery = "DO 1"
 
-const addEmployeeQuery = 'INSERT INTO employees (name) VALUES (?)'
+const addEmployeeQuery = 'INSERT INTO employees (name, authId) VALUES (?, ?)'
 const getEmployeeByIdQuery = 'SELECT * FROM employees WHERE id = (?)'
 const updateEmployeeQuery = 'UPDATE employees SET ' +
                             'name = (?)' +
