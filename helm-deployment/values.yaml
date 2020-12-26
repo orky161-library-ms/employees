@@ -2,3 +2,8 @@ name: employees
 port: 30004
 deployment:
   replicas: 2
+public:
+  - path: "/ping"
+    method: "GET"
+  - path: "/health"
+    method: "GET"
