@@ -4,7 +4,7 @@ const {sendEmail} = require("../queue/rabbit/producers/publish")
 
 async function addEmployee({name, email, employee}) {
     await employeeDal.addEmployee({name, authId: employee})
-    sendEmail(email)
+    sendEmail(email, "Hello from Library.io, Thank you for sign-up")
 }
 
 function getEmployee(id) {
