@@ -5,7 +5,7 @@ const {
     updateEmployeeQuery,
     getEmployeesQuery,
     checkConnectionQuery
-} = require("../query_builder/queries")
+} = require("./query_builder/queries")
 
 
 async function addEmployee({name, authId}) {
